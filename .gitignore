@@ -6,3 +6,4 @@ master.iml
 *.log
 *.synctex.gz
 .ipynb_checkpoints
+__pycache__/
