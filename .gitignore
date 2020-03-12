@@ -4,6 +4,7 @@ master.iml
 *.class
 *checkpoint.ipynb
 *.log
+*.aux
 *.synctex.gz
 .ipynb_checkpoints
 __pycache__/
