@@ -9,6 +9,8 @@
 % use the inputenc and fontenc packages to use French accents
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+% for color
+\usepackage{xcolor}
 % allow for arbitrary font size
 \usepackage{anyfontsize}
 % set the font as Time New Roman (the Latex equivalent, at least)
@@ -94,9 +96,13 @@
 % \nocite{*}
 {\fontsize{20pt}{22pt}\selectfont \textbf{Probabilistic tools} \par}
 \vspace{10mm}
+\input{Mass_Density}
+\input{Heavy_Tailed_Distribution}
 \input{Central_Limit_Theorem}
 \input{Spectral_Theorem}
 {\fontsize{20pt}{22pt}\selectfont \textbf{Inferential statistics} \par}
+\vspace{10mm}
+\input{Parametric_Tests}
 \vspace{10mm}
 \input{Likelihood}
 {\fontsize{20pt}{22pt}\selectfont \textbf{Exploratory statistics} \par}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.1.10)  2 MAR 2020 11:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.1.10)  12 MAR 2020 11:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -358,6 +358,27 @@ Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
 File: t1enc.def 2017/04/05 v2.0i Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 ))
+(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
 (/usr/share/texlive/texmf-dist/tex/latex/anyfontsize/anyfontsize.sty
 Package: anyfontsize 2007/11/22 anyfontsize.sty by pts
 )
@@ -529,66 +550,26 @@ Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
-
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
-))
+)
 \Gin@req@height=\dimen129
 \Gin@req@width=\dimen130
 )
 (./Stats_GS_Tex.aux)
 \openout1 = `Stats_GS_Tex.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
 
-*geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
-*geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
-* paper: a4paper
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(70.10197pt, 457.30392pt, 70.10197pt)
-* v-part:(T,H,B)=(101.17755pt, 642.69174pt, 101.17755pt)
-* \paperwidth=597.50787pt
-* \paperheight=845.04684pt
-* \textwidth=457.30392pt
-* \textheight=642.69174pt
-* \oddsidemargin=-2.16801pt
-* \evensidemargin=-2.16801pt
-* \topmargin=-8.09244pt
-* \headheight=12.0pt
-* \headsep=25.0pt
-* \topskip=11.0pt
-* \footskip=30.0pt
-* \marginparwidth=50.0pt
-* \marginparsep=10.0pt
-* \columnsep=10.0pt
-* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
-
-Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: float package is loaded.
-Package caption Info: End \AtBeginDocument code.
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count105
@@ -654,6 +635,56 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(70.10197pt, 457.30392pt, 70.10197pt)
+* v-part:(T,H,B)=(101.17755pt, 642.69174pt, 101.17755pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=457.30392pt
+* \textheight=642.69174pt
+* \oddsidemargin=-2.16801pt
+* \evensidemargin=-2.16801pt
+* \topmargin=-8.09244pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=11.0pt
+* \footskip=30.0pt
+* \marginparwidth=50.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: End \AtBeginDocument code.
+(./Mass_Density.tex
+<mass_density_functions.png, id=1, 1027.84pt x 980.66376pt>
+File: mass_density_functions.png Graphic file (type png)
+<use mass_density_functions.png>
+Package pdftex.def Info: mass_density_functions.png  used on input line 18.
+(pdftex.def)             Requested size: 154.16934pt x 147.09322pt.
+) (./Heavy_Tailed_Distribution.tex
+<heavy-light-tailed.png, id=3, 299.1175pt x 190.7125pt>
+File: heavy-light-tailed.png Graphic file (type png)
+<use heavy-light-tailed.png>
+Package pdftex.def Info: heavy-light-tailed.png  used on input line 8.
+(pdftex.def)             Requested size: 239.29431pt x 152.57019pt.
+)
 (./Central_Limit_Theorem.tex
 LaTeX Font Info:    Try loading font information for U+msa on input line 3.
 
@@ -664,33 +695,41 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 3.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-))
-(./Spectral_Theorem.tex) (./Likelihood.tex) (./Mahalanobis_distance.tex)
-(./ROC.tex [1
+) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-<../images/confusionmatrice.png, id=19, 357.335pt x 268.00125pt>
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./mass_density_functions.p
+ng> <./heavy-light-tailed.png>]) (./Spectral_Theorem.tex) (./Parametric_Tests.t
+ex [2]
+<OLS_pvalue.png, id=29, 595.22375pt x 329.23pt>
+File: OLS_pvalue.png Graphic file (type png)
+<use OLS_pvalue.png>
+Package pdftex.def Info: OLS_pvalue.png  used on input line 119.
+(pdftex.def)             Requested size: 297.61115pt x 164.6146pt.
+)
+(./Likelihood.tex [3 <./OLS_pvalue.png>]) (./Mahalanobis_distance.tex)
+(./ROC.tex
+<../images/confusionmatrice.png, id=34, 357.335pt x 268.00125pt>
 File: ../images/confusionmatrice.png Graphic file (type png)
 <use ../images/confusionmatrice.png>
 Package pdftex.def Info: ../images/confusionmatrice.png  used on input line 33.
 
 (pdftex.def)             Requested size: 178.66705pt x 134.00029pt.
-<../images/overlap_roc.jpeg, id=20, 642.4pt x 245.91875pt>
+ [4]
+<../images/overlap_roc.jpeg, id=38, 642.4pt x 245.91875pt>
 File: ../images/overlap_roc.jpeg Graphic file (type jpg)
 <use ../images/overlap_roc.jpeg>
 Package pdftex.def Info: ../images/overlap_roc.jpeg  used on input line 43.
 (pdftex.def)             Requested size: 321.19922pt x 122.95906pt.
- [2 <../images/confusionmatrice.png (PNG copy)> <../images/overlap_roc.jpeg>]) 
-[3]
+) [5 <../images/confusionmatrice.png (PNG copy)> <../images/overlap_roc.jpeg>] 
 (./Stats_GS_Tex.aux) ) 
 Here is how much of TeX's memory you used:
- 4781 strings out of 494847
- 66681 string characters out of 6179080
- 121273 words of memory out of 5000000
- 7983 multiletter control sequences out of 15000+600000
+ 5270 strings out of 494847
+ 72499 string characters out of 6179080
+ 139137 words of memory out of 5000000
+ 8453 multiletter control sequences out of 15000+600000
  15625 words of font info for 47 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 41i,5n,38p,306b,115s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,8n,38p,306b,178s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/jkn
 appen/ec/ecbx1095.600pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour/j
 knappen/ec/ecti1095.600pk> </home/savoga/.texlive2017/texmf-var/fonts/pk/ljfour
@@ -701,14 +740,15 @@ ic/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
 8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Stats_GS_Tex.pdf (3 pages, 139092 bytes).
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Stats_GS_Tex.pdf (5 pages, 258062 bytes).
 PDF statistics:
- 194 PDF objects out of 1000 (max. 8388607)
- 55 compressed objects within 1 object stream
+ 249 PDF objects out of 1000 (max. 8388607)
+ 63 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
