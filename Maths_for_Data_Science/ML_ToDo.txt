@@ -1,9 +1,10 @@
 forward selection
 ACP, AC, ACM
-SVM
+SVM - DONE
 Ridge
 Lasso
-RNN/CNN
-NN
-Aggrégation modèles
-AdaBoost
+RNN/CNN - Andrew Ng + TP (!!)
+NN - Finir Andrew Ng et faire Latex
+Random Forests - assez familier
+AdaBoost - Latex à faire
+NLP - outils / algos
