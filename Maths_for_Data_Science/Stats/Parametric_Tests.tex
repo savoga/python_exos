@@ -95,7 +95,7 @@ Finally, $\frac{\sqrt{n} (k-a)}{\sqrt{\sigma^2}}=q_\alpha$ => we can find $k$ te
 
 \vspace{5mm}
 
-\textcolor{gray}{We not looking at the average directly?}
+\textcolor{gray}{Why not looking at the average directly?}
 
 => the average can be influenced by the outliers and thus doesn't take into consideration extreme events.
 
@@ -118,5 +118,111 @@ When performing OLS, our hypothesis is $\theta_{x1}=0$ so we reject it if the pv
 \begin{center}
 \includegraphics[scale=0.5]{OLS_pvalue.png}
 \end{center}
+
+Example 2:  when the variance is not known.
+
+\vspace{5mm}
+
+Say we want to test whether a coefficient is zero:
+
+1) find the test to perform
+
+\vspace{5mm}
+
+$
+\left\{
+    \begin{array}{ll}
+        \mathcal{H}_0: \theta_j=0 \\
+        \mathcal{H}_1: \theta_j \neq 0 \\
+    \end{array}
+\right.
+$
+
+\vspace{5mm}
+
+2) find the right estimator to use
+
+\vspace{5mm}
+
+$\widehat{\theta_j} = (X^TX)^{-1}X^TY$
+
+\vspace{5mm}
+
+3) deduce the reject region
+
+\vspace{5mm}
+
+$Z=\{k_1 \leq \widehat{\theta_j} \leq k_2\}$
+
+\vspace{5mm}
+
+4) compute the test statistic
+
+\vspace{5mm}
+
+$T_j = \frac{\widehat{\theta_j}-\theta_j}{\sigma_{\theta_j}} = \frac{\widehat{\theta_j}}{\sigma_{\theta_j}}  \sim \mathcal{N}(0,1)$ with $\sigma_{\theta_j} = \sigma \sqrt{(X^TX)^{-1}}$ (recall that $\sigma = \sigma_{\epsilon}$)
+
+\vspace{5mm}
+
+Since we don't know $\sigma$, we can use the Cochrane theorem to remove this value:
+
+$T_j = \frac{ \frac{\widehat{\theta_j}}{\sigma \sqrt{(X^TX)^{-1}}} \sim \mathcal{N}(0,1)}{\sqrt{\frac{\widehat{\sigma}^2 (n-p-1)}{\sigma^2} \sim \mathcal{X}_{n-p-1}}} \sim \mathcal{T}(n-p-1)$ with $\widehat{\sigma}^2 = \frac{1}{n-p-1} \Sigma \epsilon ^2$
+
+$ T_j = \frac{\widehat{\theta_j}}{\Sigma \epsilon ^2 \sqrt{(X^TX)^{-1}}}$
+
+\vspace{5mm}
+
+5) retrieve quantiles of known distributions
+
+\vspace{5mm}
+
+Finally,
+
+
+$\mathcal{P}_{\theta_j=0}(\frac{k_1}{\Sigma \epsilon ^2 \sqrt{(X^TX)^{-1}}} \leq T_j \leq \frac{k_2}{\Sigma \epsilon ^2 \sqrt{(X^TX)^{-1}}}) = \alpha$
+
+Thus, $\frac{k_1}{\Sigma \epsilon ^2 \sqrt{(X^TX)^{-1}}} = t_{\frac{\alpha}{2}}$ (same for $k_2$)
+
+\vspace{5mm}
+
+Example 3 (forward selection):
+
+\vspace{5mm}
+
+Concept: 
+
+Regress all variables one by one on the most significant variable's residual, remove the most significant variable after each full round
+
+\vspace{20mm}
+
+\begin{algorithm}
+\caption{Forward selection}
+\begin{algorithmic}
+\State $sel \_ variables \leftarrow \emptyset$
+\For{$i=1$ to $nb \_variables$}
+\State $resid \_mem \leftarrow \emptyset$
+\State $T \_stats \leftarrow \emptyset$
+\For{$j=1$ to $rem \_ variables$}
+\State $Y = X_j\theta$
+\State $resid \_mem \leftarrow resid \_mem + \{res\}$ // adding residuals from previous regression
+\State $T \_ stats \leftarrow T \_stats + \{T_j\}$ // $T_j$ is computed as seen in example 2
+\EndFor
+\State $k \leftarrow argmax(T \_ stats)$
+\State $Y = resid \_ mem (k)$
+\State $rem \_ variable \leftarrow rem \_ variable - {k}$
+\State $sel \_ variables \leftarrow sel \_ variables + \{k\}$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\begin{center}
+\includegraphics[scale=0.5]{forward_sel_pval.png}
+\end{center}
+
+(x-axis is the order in which we selected variables; see notebook \textit{ACP\_ForwardSelection\_Ridge\_Lasso.ipynb})
+
+We can then select only the most significant variables based on p-values on variables from list $sel \_ variables$
+
+\textit{Note}: since $pval = 2*(1-cdf(T)) = 2*\frac{1-(1-\alpha)}{2}$, choosing the biggest T-stat is equivalent to choose the smallest p-value
 
 \vspace{5mm}
