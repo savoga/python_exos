@@ -48,6 +48,7 @@ results = model.fit()
 print(results.summary())
 u=results.resid
 SSR0=u.T@u
+# Student test tells us that exper is not significant for a threshold of 1%
 
 # Constraint model
 X=np.column_stack((const, educ, tenure))
@@ -61,9 +62,7 @@ SSR1=u.T@u
 n=np.shape(X0)[0]
 F=((SSR1-SSR0)/1)/(SSR0/(n-4))
 f.sf(F,1,n-4)
-
-# Comparison with Student stats
-# ...
+# Fisher test (use correlation) tells us that exper is significant for a threshold of 1%
 
 # EXERCISE 3 (correct) ---------------
 
