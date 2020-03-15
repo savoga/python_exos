@@ -226,3 +226,77 @@ We can then select only the most significant variables based on p-values on vari
 \textit{Note}: since $pval = 2*(1-cdf(T)) = 2*\frac{1-(1-\alpha)}{2}$, choosing the biggest T-stat is equivalent to choose the smallest p-value
 
 \vspace{5mm}
+
+Example 4 (F-test):
+
+\vspace{5mm}
+
+When several variables are correlated (often the case in practice), the student test is not efficient enough since it does not take the correlation into account. F-test allows to test \textbf{global} significativity.
+
+Let's say we have 4 variables and we want to check the significativity of 2 of them.
+
+\vspace{5mm}
+
+$
+\left\{
+    \begin{array}{ll}
+        \mathcal{H}_0: \theta_1 = \theta_2 = 0\\
+        \mathcal{H}_1: \theta_1, \theta_2 \neq 0 \\
+    \end{array}
+\right.
+$
+
+\vspace{5mm}
+
+$SSR = sum~squared~residuals = \Sigma (\widehat{y_i} - y_i)^2$
+
+\vspace{5mm}
+
+$F = \frac{(SSR_C - SSR_{NC})/(p_{NC} - p_C)}{(SSR_{NC})/(n-p_{NC})} \sim \mathcal{F}(p_{NC} - p_C, n-p_{NC})$
+
+\vspace{5mm}
+
+NC: not constraint model
+
+C: constraint model
+
+\vspace{5mm}
+
+Method:
+
+- OLS on not constraint model => computation of $SSR_{NC}$
+
+- OLS  on constraint model => computation of $SSR_{C}$
+
+- Computation of the Fisher stat => computation of p-value (using survival function as above)
+
+\lstset{language=Python}
+\lstset{frame=lines}
+\lstset{caption={F-test}}
+\lstset{label={lst:code_direct}}
+\lstset{basicstyle=\footnotesize}
+\begin{lstlisting}
+
+# Non constraint model
+X0=np.column_stack((educ, exper, tenure, const))
+model=sm.OLS(y,X0)
+results = model.fit()
+u=results.resid
+SSR0=u.T@u
+
+# Constraint model
+X=np.column_stack((const, educ, tenure))
+model=sm.OLS(y,X)
+results = model.fit()
+u=results.resid
+SSR1=u.T@u
+
+# Computation of Fisher stat
+n=np.shape(X0)[0]
+F=((SSR1-SSR0)/1)/(SSR0/(n-4))
+f.sf(F,1,n-4) # p-value
+
+\end{lstlisting}
+
+
+\vspace{5mm}
