@@ -1,10 +1,11 @@
-forward selection
+forward selection - DONE
 ACP, AC, ACM
 SVM - DONE
 Ridge
 Lasso
 RNN/CNN - Andrew Ng + TP (!!)
 NN - Finir Andrew Ng et faire Latex
-Random Forests - assez familier
-AdaBoost - Latex à faire
+Random Forests - latex (déjà assez familier)
 NLP - outils / algos
+TP LSTM / RNN
+XGBoost - théorie
