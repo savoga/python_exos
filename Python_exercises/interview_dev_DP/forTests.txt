@@ -1,0 +1,13 @@
+import datetime
+import data_analysis_v1 as da1
+import data_analysis_v2 as da2
+
+d_start = datetime.date(2016, 3, 11)
+d_end = datetime.date(2016, 3, 20)
+path_data = "/home/savoga/Bureau/DataPred/data"
+
+da1.topRetailersRev(path_data,d_start,d_end)
+da2.topRetailersRev(path_data,d_start,d_end)
+
+da1.topFamilySales(path_data,d_start,d_end)
+da2.topFamilySales(path_data,d_start,d_end)
