@@ -9,4 +9,7 @@ Random Forests - latex (déjà assez familier)
 NLP - outils / algos
 TP LSTM / RNN
 XGBoost - théorie
-Reinforcement learning
+Reinforcement learning - DONE
+GAN
+CRF
+Large Scale Kernels
