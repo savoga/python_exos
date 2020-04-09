@@ -145,3 +145,47 @@ test_df.plot(kind='bar')
 \end{center}
 
 \vspace{5mm}
+
+
+INTUITION
+
+
+\vspace{5mm}
+
+Partial autocorrelation
+
+\vspace{5mm}
+
+Based on article \href{https://towardsdatascience.com/understanding-partial-auto-correlation-fa39271146ac}{understanding-partial-auto-correlation (towardsdatascience)}
+
+\vspace{5mm}
+
+\begin{center}
+$PR_k = \frac{cov(X_t | X_{t-1} ... X_{t-k+1},X_{t-k} | X_{t-1} ... X_{t-k+1})}{\sigma_{X_t | X_{t-1} ... X_{t-k+1}} \sigma_{X_{t-k} | X_{t-1} ... X_{t-k+1}}}$
+\end{center}
+
+$X_t | X_{t-1} ... X_{t-k+1}$ is the residual of regression $X_t = \beta_0 + \beta_1 X_{t-1} + ... + \beta_k X_{t-k+1}$
+
+$X_{t-k} | X_{t-1} ... X_{t-k+1}$ is the residual of regression $X_{t-k} = \beta_0 + \beta_1 X_{t-1} + ... + \beta_k X_{t-k+1}$
+
+\vspace{5mm}
+
+Thus, one can write:
+
+\begin{center}
+$PR_k = \rho_{\epsilon_t,\epsilon_{t-k}}$
+\end{center}
+
+\vspace{5mm}
+
+We use partial autocorrelation in order to define the order $p$ in which we can compute an AR(p) model.
+
+\begin{center}
+\includegraphics[scale=0.2]{PACF.png}
+\end{center}
+
+\vspace{5mm}
+
+Based on this graph, we can use an AR(2) or even AR(3) ($k=3$ is just outside the 95\% confidence interval.
+
+\vspace{5mm}
