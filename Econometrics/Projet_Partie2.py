@@ -13,11 +13,14 @@ manquantes)
 '''
 
 df = pd.read_excel('../../Econometrics_data/quarterly.xls')
-print('Existence of null values in dataframe: {}'.format(df.isnull().values.any()))
-# no null value in dataframe
+if df.isnull().values.any():
+    print('Existence de valeur manquante dans le dataframe')
+else:
+    print('Pas de valeur manquante')
+# aucune valeur manquante dans le dataframe
 
 '''
-2. Stationnariser la série de CPI en utilisant la méthode de régression qui inclue un terme de
+2. Stationnariser la série de CPI en utilisant la méthode de régression qui inclut un terme de
 tendance dont la forme fonctionnelle est à choisir (linéaire, quadratique, log, exponentielle,
 …)
 '''
@@ -32,8 +35,9 @@ plt.title('CPI')
 # La série n'est clairement pas stationnaire car on voit une tendance
 # => la moyenne et la variance ne sont pas similaires en tout point
 
-dcpi = np.diff(cpi) # diff donne (y(t) - y(t-1))
+# La tendance est linéaire, on peut donc appliquer la méthode des différences
 # la méthode des différences permet de supprimer la tendance temporelle
+dcpi = np.diff(cpi) # diff donne (y(t) - y(t-1))
 # intuitivement, si on a une tendance ça veut dire qu'il y a un coefficient
 # de variation constant => si on le supprime, on supprime donc la tendance
 plt.figure(figsize=(8, 6))
@@ -47,8 +51,8 @@ plt.title('Stationarisation avec la méthode des différences')
 3. Stationnariser la série de CPI en utilisant un moyenne mobile centrée 5x5.
 '''
 
-cpi_roll = cpi.rolling(window=5).mean() # la première cellule (indice 4) est la moyenne
-# des 5 précédentes (inclusif)
+cpi_roll = cpi.rolling(window=5).mean()
+# la première cellule (indice 4) est la moyenne des 5 précédentes (inclusif)
 
 cpi_mm = cpi - cpi_roll
 
@@ -104,7 +108,6 @@ deux conditions. Expliquez le terme "spurious regression".
 # car cela montre que la correlation est faible pour un grand nombre de périodes
 
 # Ergodicité => Stationnarité (attention réciproque fausse)
-
 # On a besoin que la série soit stationnaire pour avoir l'ergodicité
 # On a besoin de l'ergodicité pour pouvoir appliquer le théorème central limite
 # et ainsi approcher l'espérance par la moyenne.
@@ -144,11 +147,12 @@ plt.title("AIC")
 
 # Le test ADF permet de vérifier l'existence d'une racine unitaire. Si elle existe,
 # alors le process n'est pas stationnaire.
+# H_0: présence d'une racine unitaire (<=> non stationnarité)
 
 from statsmodels.tsa.stattools import adfuller
 
 res_af = adfuller(inf, maxlag=3)
-print('ADF p-value: %f' % res_af[1])
+print('ADF p-valeur: {}'.format(res_af[1]))
 
 # La p-valeur étant inférieure au seuil de 5%, on rejette H_0
 # On ne peut donc pas confirmer la présence d'une racine unitaire
@@ -160,7 +164,7 @@ print('ADF p-value: %f' % res_af[1])
 
 from statsmodels.graphics.tsaplots import acf
 
-print('l'"autocorrélation à l'ordre 3 est {}".format(acf(inf)[3]))
+print("l" + "'" + "autocorrélation à l'ordre 3 est {}".format(acf(inf)[3]))
 
 '''
 9. Estimer le modèle de la courbe de Philips qui explique le taux de chômage (Unemp) en
@@ -172,21 +176,22 @@ import statsmodels.regression.linear_model as sm
 unem = df['Unemp']
 y_unem = unem[1:]
 const_philips = np.ones(len(y_unem))
-x_philips = np.column_stack((const_philips, inf))
-model = sm.OLS(y_unem,x_philips)
+x_inf = np.column_stack((const_philips, inf))
+model = sm.OLS(y_unem,x_inf)
 results_philips = model.fit()
 print(results_philips.summary())
 
-# On ne peut pas rejeter l'hypothèse de nullité du coefficient
+# La p-valeur associée à la variable x1 est élevée
+# => on ne peut pas rejeter l'hypothèse de nullité du coefficient
 # => la variable x1 n'est pas significative
 
 '''
 10. Tester l’autocorrélation des erreurs.
 '''
 
-# TP5 exercice 3
-# Un test sur l'autocorrélation des erreurs est un car particulier
+# Le test de l'autocorrélation des erreurs est un cas particulier
 # d'un test d'hétéroscédasticité
+# H_0: il n'y a pas d'autocorrélation
 
 u = np.array(results_philips.resid)
 y_res = np.array(u[1:])
@@ -266,7 +271,7 @@ print(testHeteroscedasticite(inf_2,y_unem_2,wls=False).summary())
 12. Tester la stabilité de la relation chômage-inflation sur deux sous-périodes de taille identique.
 '''
 
-# On avait une relation non significative précédemment
+# On avait une relation non significative précédemment (question 9.)
 
 idx_mid = 90 # trouvé après plusieurs essais
 idx_gpe_1 = inf[:idx_mid].index
@@ -331,8 +336,10 @@ for i in range(20,len(inf)-10,5):
     if(pval < 0.05):
         print('date:{} pval:{}'.format(date[idx_mid], pval))
 
-# On remarque que les différents points de rupture sont cohérents avec le fait
-# le premier groupe est généralement haussier (jusqu'en 1975), et le deuxième baissier
+# Parmi les résultats, les premiers groupe se caractérisent généralement
+# par une tendance haussière (jusqu'en 1975), et les deuxièmes groupes par
+# des tendances baissières
+
 # Il y a aussi des points de rupture en 2007-2008 (crise financière)
 
 '''
@@ -380,6 +387,11 @@ terme de l’inflation sur le chômage.
 '''
 
 fig = plt.figure(figsize=(8,8))
-plt.plot(np.arange(4)+1,results_philips_nc.params[2:])
+ax = plt.figure().gca()
+ax.xaxis.set_major_locator(mticker.MaxNLocator(integer=True))
+plt.bar((1,2,3,4),results_philips_nc.params[2:])
+plt.title("Délais distribués")
 
 # On voit que le délai 4 impacte le plus le chômage
+
+print("impact de long terme : {}".format(sum(results_philips_nc.params[2:])))
