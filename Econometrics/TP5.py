@@ -6,7 +6,7 @@ from scipy.stats import f
 
 # Exercice 1 CORRECT
 
-df = pd.read_csv('textfiles/intdef.raw', delim_whitespace=True, header=None)
+df = pd.read_csv('../../Econometrics_data/textfiles/intdef.raw', delim_whitespace=True, header=None)
 
 fig, ax = plt.subplots()
 
@@ -58,13 +58,13 @@ print(results1.summary())
 # Exercice 5
 
 n=len(inf)
-inf_1=inf[1:n-1] # On ne prend pas la dernière valeur valeur (car c'est l'instant t qu'on cherche)
+inf_1=inf[1:n-1] # On ne prend pas la dernière valeur (car c'est l'instant t qu'on cherche)
 def_1=deficit[1:n-1]
 inf_2=inf[0:n-2]
 def_2=deficit[0:n-2]
 y=i3[2:n] # On ne prend pas la première valeur
 const=np.ones(n-2)
-X=np.column_stack((const,inf_1,def_1,inf_2,def_2))
+X=np.column_stack((const,inf_1,inf_2,def_1,def_2))
 
 model=sm.OLS(y,X)
 results = model.fit()

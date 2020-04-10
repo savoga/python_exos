@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-df = pd.read_csv('FERTIL3.raw', delim_whitespace=True, header=None)
+df = pd.read_csv('../../Econometrics_data/textfiles/FERTIL3.raw', delim_whitespace=True, header=None)
 
 gfr=df[0]
 
