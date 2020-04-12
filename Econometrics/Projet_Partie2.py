@@ -24,6 +24,7 @@ else:
 tendance dont la forme fonctionnelle est à choisir (linéaire, quadratique, log, exponentielle,
 …)
 '''
+
 cpi = df['CPI']
 date = df['DATE']
 plt.figure(figsize=(8, 6))
@@ -32,35 +33,56 @@ myLocator = mticker.AutoLocator()
 ax.xaxis.set_major_locator(myLocator)
 plt.plot(date, cpi)
 plt.title('CPI')
+
 # La série n'est clairement pas stationnaire car on voit une tendance
 # => la moyenne et la variance ne sont pas similaires en tout point
 
+# ***** Méthode des différences finies *****
 # La tendance est linéaire, on peut donc appliquer la méthode des différences
-# la méthode des différences permet de supprimer la tendance temporelle
+# cette méthode des différences permet de supprimer la tendance temporelle
 dcpi = np.diff(cpi) # diff donne (y(t) - y(t-1))
 # intuitivement, si on a une tendance ça veut dire qu'il y a un coefficient
 # de variation constant => si on le supprime, on supprime donc la tendance
 plt.figure(figsize=(8, 6))
 ax = plt.subplot()
-myLocator = mticker.AutoLocator()
 ax.xaxis.set_major_locator(myLocator)
 plt.plot(date[1:], dcpi)
 plt.title('Stationarisation avec la méthode des différences')
+
+# ***** Méthode de régression avec variable temporelle *****
+import statsmodels.api as sm
+
+X = np.arange(len(cpi))+1 # variable de temps
+X = sm.add_constant(X)
+y = cpi
+model=sm.OLS(y,X)
+results = model.fit()
+o1 = results.resid
+plt.figure(figsize=(8, 6))
+ax = plt.subplot()
+ax.xaxis.set_major_locator(myLocator)
+plt.plot(date,o1)
+plt.title('Stationarisation avec la méthode de régression')
 
 '''
 3. Stationnariser la série de CPI en utilisant un moyenne mobile centrée 5x5.
 '''
 
-cpi_roll = cpi.rolling(window=5).mean()
-# la première cellule (indice 4) est la moyenne des 5 précédentes (inclusif)
+# On fait deux fois une moyenne mobile
 
+cpi_roll = cpi.rolling(window=5).mean() # la première cellule (indice 4) est la moyenne des 5 précédentes (inclusif)
 cpi_mm = cpi - cpi_roll
+cpi_roll_2 = cpi_mm.rolling(window=5).mean()
+cpi_mm_2 = cpi_mm - cpi_roll_2
+
 
 plt.figure(figsize=(8, 6))
 ax = plt.subplot()
 ax.xaxis.set_major_locator(myLocator)
-plt.plot(date, cpi_mm)
-plt.title('Stationarisation avec la méthode moyenne mobile')
+plt.plot(date, cpi_mm_2)
+plt.title('Stationarisation avec la méthode moyenne mobile 5x5')
+
+# De ces trois méthodes, on constate que c'est cette dernirère qui semble fournir de meilleurs résultats
 
 '''
 4. Calculer inf, le taux d’inflation à partir de la variable CPI. Faire un graphique dans le temps de
@@ -151,7 +173,7 @@ plt.title("AIC")
 
 from statsmodels.tsa.stattools import adfuller
 
-res_af = adfuller(inf, maxlag=3)
+res_af = adfuller(inf, maxlag=3, autolag=None)
 print('ADF p-valeur: {}'.format(res_af[1]))
 
 # La p-valeur étant inférieure au seuil de 5%, on rejette H_0
@@ -191,7 +213,7 @@ print(results_philips.summary())
 
 # Le test de l'autocorrélation des erreurs est un cas particulier
 # d'un test d'hétéroscédasticité
-# H_0: il n'y a pas d'autocorrélation
+# H_0: il n'y a pas d'autocorrélation (homoscédasticité)
 
 u = np.array(results_philips.resid)
 y_res = np.array(u[1:])
@@ -209,16 +231,11 @@ print(results_autocorr.summary())
 11. Corriger l’autocorrélation des erreurs par la méthode vue en cours.
 '''
 
-def testHeteroscedasticite(x1,y,wls):
+def testHeteroscedasticite(x1,y):
     const = np.ones(len(y))
     x = np.column_stack((const, x1))
 
-    model = None
-    if wls:
-        h = np.sqrt(x1)
-        model = sm.WLS(y, x, weight=1/h)
-    else:
-        model = sm.OLS(y,x)
+    model = sm.OLS(y,x)
     results = model.fit()
 
     u = np.array(results.resid)
@@ -230,21 +247,14 @@ def testHeteroscedasticite(x1,y,wls):
 
     return results_heteroscedasticite
 
-# Transformation 1 : transformation en variables binaires
-# => impossible car l'inflation est une variable continue
-
-# Transformation 2 : utiliser le logarithme
+# Transformation 1 : passage au logarithme
 log_inf = np.log(inf).fillna(-500)
-print(testHeteroscedasticite(log_inf,y_unem, wls=False).summary())
+print(testHeteroscedasticite(log_inf,y_unem).summary())
 # On ne peut toujours pas rejeter l'hypothèse d'homoscédasticité
 # Cependant on remarque que la F-stat diminue, on peut donc conclure que
 # le test est moins significatif
 
-# Transformation 3 : Weighted Least Squares
-print(testHeteroscedasticite(log_inf,y_unem, wls=True).summary())
-# WLS ne change pas les résultats car il n'y a qu'une seule variable
-
-# Transformation 4 : régressions par sous-groupes
+# Transformation 2 : régressions par sous-groupes
 fig = plt.figure(figsize=(8,8))
 plt.scatter(inf,y_unem)
 plt.ylabel("unemployment")
@@ -256,11 +266,11 @@ indexes_group_2 = inf[inf < 1].index
 
 y_unem_1 = y_unem[indexes_group_1]
 inf_1 = inf[indexes_group_1]
-print(testHeteroscedasticite(inf_1,y_unem_1,wls=False).summary())
+print(testHeteroscedasticite(inf_1,y_unem_1).summary())
 
 y_unem_2 = y_unem[indexes_group_2]
 inf_2 = inf[indexes_group_2]
-print(testHeteroscedasticite(inf_2,y_unem_2,wls=False).summary())
+print(testHeteroscedasticite(inf_2,y_unem_2).summary())
 # L'hétéroscédasticité est toujours significative, cependant
 # avec cette dernière transformation on parvient à diminuer
 # sensiblement la statistique de Fisher
@@ -273,7 +283,7 @@ print(testHeteroscedasticite(inf_2,y_unem_2,wls=False).summary())
 
 # On avait une relation non significative précédemment (question 9.)
 
-idx_mid = 90 # trouvé après plusieurs essais
+idx_mid = int(len(y_unem)/2)
 idx_gpe_1 = inf[:idx_mid].index
 idx_gpe_2 = inf[idx_mid:].index
 
@@ -295,9 +305,8 @@ model = sm.OLS(y_phil_gpe_2,x_phil_2)
 results_phil_2 = model.fit()
 print(results_phil_2.summary())
 
-# On remarque qu'en séparant l'échantillon à l'indice 90 (date 1982Q3)
-# la relation chômage-inflation est significative pour la première période
-# et non significative pour la seconde période (à niveau 5%)
+# On remarque qu'en séparant l'échantillon à la moitié,
+# on a une meilleure significativité de la relation chômage-inflation
 
 '''
 13. Faites les tests changement de structure de Chow et détecter le point de rupture.
@@ -305,6 +314,7 @@ print(results_phil_2.summary())
 from scipy.stats import f
 u_phil = results_philips.resid
 SSR = u_phil.T@u_phil
+date_list = []
 
 for i in range(20,len(inf)-10,5):
     idx_mid = i
@@ -334,13 +344,20 @@ for i in range(20,len(inf)-10,5):
     F=((SSR-(SSR1+SSR2))/(SSR1+SSR2))*(len(y_unem)-2*2)/2
     pval = f.sf(F,len(y_unem)-2*2,2)
     if(pval < 0.05):
-        print('date:{} pval:{}'.format(date[idx_mid], pval))
+        date_split = date[idx_mid]
+        date_list.append(date_split)
+        print('date:{} pval:{}'.format(date_split, pval))
 
-# Parmi les résultats, les premiers groupe se caractérisent généralement
-# par une tendance haussière (jusqu'en 1975), et les deuxièmes groupes par
-# des tendances baissières
+plt.figure(figsize=(8, 6))
+ax = plt.subplot()
+ax.xaxis.set_major_locator(myLocator)
+plt.plot(date[1:],inf)
+for d in date_list:
+    plt.axvline(d, c='red')
+plt.title("Taux d" + "'" + "inflation (%) et changement de structure")
 
-# Il y a aussi des points de rupture en 2007-2008 (crise financière)
+# On remarque que les différents points de ruptures se situent juste
+# avant un pic haussier ou baissier (chocs pétrioliers et crise financière)
 
 '''
 14. Estimer la courbe de Philips en supprimant l'inflation courante des variables explicatives mais
