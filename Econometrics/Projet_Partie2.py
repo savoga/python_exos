@@ -12,7 +12,7 @@ import matplotlib.ticker as mticker
 manquantes)
 '''
 
-df = pd.read_excel('../../Econometrics_data/quarterly.xls')
+df = pd.read_excel('data_projet_MS/quarterly.xls')
 if df.isnull().values.any():
     print('Existence de valeur manquante dans le dataframe')
 else:
@@ -106,8 +106,7 @@ plt.title("Taux d" + "'" + "inflation (%)")
 différence entre ces deux graphiques ?
 '''
 
-from statsmodels.graphics.tsaplots import plot_acf
-from statsmodels.graphics.tsaplots import plot_pacf
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 
 plot_acf(inf)
 plot_pacf(inf)
