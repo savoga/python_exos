@@ -13,3 +13,4 @@ Reinforcement learning - DONE
 GAN
 CRF
 Large Scale Kernels
+Test Dickey-Fuller - Projet Séries Temp Econométrie
