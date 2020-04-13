@@ -112,6 +112,36 @@ Consequently, the variance is increasing with time so the process is \textbf{not
 
 \vspace{5mm}
 
-Unit root testing: Augmented Dicky Fuller test.
+To detect stationarity, we can perform a unit root test such as \textit{Augmented Dicky Fuller test}.
+
+\vspace{5mm}
+
+Non stationarity can be corrected in several ways :
+
+- time regression : performing a regression on time and working with the error term
+
+Example : if $y_t$ in non stationary
+
+$y_t = \beta_0 + \beta_1 t +\epsilon_t$ --> $\epsilon_t$ will not depend on time anymore
+
+- finite differences : removing previous term to each observation $y_t = y_t - y_{t-1}$ --> this will have the effect to remove the trend
+
+- moving average XxX
+
+Example : using (double) centered moving average 5x5 
+
+\lstset{language=Python}
+\lstset{frame=lines}
+\lstset{caption={Centered moving average (double)}}
+\lstset{label={lst:code_direct}}
+\lstset{basicstyle=\footnotesize}
+\begin{lstlisting}
+
+cpi_roll = cpi.rolling(window=5).mean() # cell at index 4 is the mean of the 5 previous ones (inclusive)
+cpi_mm = cpi - cpi_roll
+cpi_roll_2 = cpi_mm.rolling(window=5).mean()
+cpi_mm_2 = cpi_mm - cpi_roll_2
+
+\end{lstlisting}
 
 \vspace{5mm}
