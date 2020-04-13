@@ -1,0 +1,45 @@
+Echantilloner? Dans la pratique, ils utilisent TOUTES les données d'entraînement
+Possible d'avoir des meilleurs résultats en échantillonant ? Non, c'est mieux d'utiliser toutes les données
+Pourquoi moins bons résultats en prenant les k nearest neighbors de l'échantillon de test ?
+Modèle fait par les gagnants ?
+
+Avant, le sujet c'était la protection des données. Maintenant c'est l'interprétabilité (biais ethnique par exemple: les personnes de couleurs noire sont moins bien reconnues)
+
+Certaines données de l'échantillon de test proviennent de bases qui n'ont pas été utilisées dans l'échantillon de train.
+
+YANG
+Ajouter les données permutées à la fin (image 1 devient image 2)
+Pénaliser les faux positifs dans la fonction de perte (cost sensitive learning)
+Logistic regression, randomForest, Xgboost avec custom loss function: ajouter Beta (en paramètre) dans une fonction dans une entropie croisée pour pénaliser les TPR
+Meilleur score: data augmentation
+
+SEB
+Preprocessing: data augmentation en faisant des soustractions de variables (pour passer de 37 à 105 variables)
+PCA pour voir qu'on peut bien séparer les données linéairement
+XGBoost
+Lightgbm
+CatBoost
+Modèle qui combine les 3
+CrossVal inutile quand jeu de donnée trop élevé
+Seulement 1% en jeu de validation! "Autant utiliser quasiment tout l'échantillon en entraînement"
+Régularisation L1, L2
+LightGBM plus rapide car ne grandit pas un arbre s'il voit que ça ne sert à rien
+"Le tuning de paramètres est pas très rentable quand il y a autant d'observations"
+CatBoost fait le Preprocessing en interne (ex: encoding)
+Stacking!! Rassembler les prédictions (?) de plusieurs modèles
+
+VINCENT
+Centrer et réduit
+Exploration des données pour voir s'il y a des outliers (à supprimer éventuellement)
+
+Graphe feature importance
+
+SONIA
+Preprocessing: correlation
+XGBoost ne tournait pas sur collab, LGBM utilisé
+Stacking!!
+A explore: RandomForestClassifier = sorte de crossval
+1% pour la validation
+
+Feedback IDEMIA:
+En réalité il n'y avait pas tant de données que ça, la data augmentation est une bonne idée (valeur absolue, différence, somme, ...)
