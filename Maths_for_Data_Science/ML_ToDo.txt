@@ -1,16 +1,12 @@
-forward selection - DONE
-ACP, AC, ACM
-SVM - DONE
-Ridge
-Lasso
-RNN/CNN - Andrew Ng + TP (!!)
-NN - Finir Andrew Ng et faire Latex
+ACP - LateX
+Ridge - Cours, LateX, TP
+Lasso - Cours, LateX, TP
+CNN - Cours (déjà commencé), LateX, TP
+NN - Cours (déjà commencé), LateX (déjà commencé), TP (déjà commencé)
 Random Forests - latex (déjà assez familier)
-NLP - outils / algos
-TP LSTM / RNN
-XGBoost - théorie
-Reinforcement learning - DONE
-GAN
-CRF
-Large Scale Kernels
-Test Dickey-Fuller - Projet Séries Temp Econométrie
+RNN - Cours, LateX, TP
+LSTM - Cours, LateX, TP
+XGBoost - LateX
+GAN - LateX, TP
+CRF - Cours, LateX, TP
+Test Dickey-Fuller - Cours, LateX
