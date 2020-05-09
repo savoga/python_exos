@@ -24,7 +24,7 @@ Classification function: $\widehat{f}_{\omega}(x) = \sigma(\omega x)$ with a thr
 
 \underline{Loss function}
 
-If $y = 1$, we want $\sigma(\omega x)$ to be high => $1 - \sigma(\omega x)$ should be low. The loss function should be increasing with $1 - \sigma(\omega x) = 1 - \frac{1}{1+e^{-\omega x}} = \frac{1}{1+e^{\omega x}}$. Equivalently, it should be increasing with $1 + e^{-\omega x}$
+If $y = 1$, we want $\sigma(\omega x)$ to be high => $1 - \sigma(\omega x)$ should be low. The loss function should be increasing with $1 - \sigma(\omega x) = 1 - \frac{1}{1+e^{-\omega x}} = \frac{1}{1+e^{\omega x}}$. Equivalently, it should be increasing with $1 + e^{-\omega x}$.
 
 More generally, the loss function is defined as such: $\ell(f_{\omega}, (x,y)) = log(1 + e^{-y \omega x})$ (adding $y$ in the expression allows to take into account cases when $y = 1$ and $y = -1$).
 
