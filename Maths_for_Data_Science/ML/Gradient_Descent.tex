@@ -4,11 +4,67 @@
 
 $\ell$ the loss function to minimize:
 
-$\theta_{t+1}=\theta_t - \alpha \nabla \ell$
+$\theta_{t+1}=\theta_t - \alpha \nabla \ell$ \\
 
-More details in Jupyter Notebook ML\_GS.ipynb.
+\begin{algorithm}
+\caption{Global gradient descent}
+\begin{algorithmic}
+\State Loss function $\widehat{L}_n(\hat{f}_\omega(x))=\Sigma_{i=1}^n \mathcal{\ell}(\hat{f}_\omega(x),y)$
+\State $E=1000$
+\State $\epsilon$ = small value
+\State $\omega_0$ = intial value in $t_0$
+\While{$E > \epsilon$}
+\State $\omega_{t+1}=\omega_t-\epsilon\Sigma_{i=1}^n\nabla_\omega{\mathcal{\ell}(\hat{f}_\omega(x),y)}$
+\State Compute $E=L_n(\omega_{t+1})$
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
 
-Proof of the formula:
+
+\begin{algorithm}
+\caption{Stochastic gradient descent}
+\begin{algorithmic}
+\State Loss function $\widehat{L}_n(\hat{f}_\omega(x))=\Sigma_{i=1}^n \mathcal{\ell}(\hat{f}_\omega(x),y)$
+\State $E=1000$
+\State $\epsilon$ = small value
+\State $\omega_0$ = intial value in $t_0$
+\While{$E > \epsilon$}
+\For{i = 1,...,n}
+\State $\omega_{t+1}=\omega_t-\epsilon\nabla_\omega{\mathcal{\ell}(\hat{f}_\omega(x_i),y_i)}$
+\State Compute $E=L_n(\omega_{t+1})$
+\EndFor
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Stochastic and random gradient descent}
+\begin{algorithmic}
+\State Loss function $\widehat{L}_n(\hat{f}_\omega(x))=\Sigma_{i=1}^n \mathcal{\ell}(\hat{f}_\omega(x),y)$
+\State $E=1000$
+\State $\epsilon$ = small value
+\State $\omega_0$ = intial value in $t_0$
+\While{$E > \epsilon$}
+\For{i = 1,...,n}
+\State Random draw of $i \in \{1,...,n\}$
+\State $\omega_{t+1}=\omega_t-\epsilon\nabla_\omega{\mathcal{\ell}(\hat{f}_\omega(x_i),y_i)}$
+\State Compute $E=L_n(\omega_{t+1})$
+\EndFor
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\vspace{30mm}
+
+The main advantage of stochastic gradient is that it avoid computing the gradient descent on all the observations (greedy). However, in doing so, the gradient descent is subject to noise and can take longer to reach the optimum. \\
+
+\textit{Note}: the gradient is the derivation w.r.t $\omega$
+
+\textit{Note (stochastic and random gradient descent)}: the draw can be done with or without replacement. \\
+
+
+
+\underline{Proof of the gradient descent formula}:
 
 \includegraphics[scale=0.3]{../images/GradientDescent_proof.png}
 
