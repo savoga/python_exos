@@ -11,3 +11,7 @@ GAN - LateX, TP
 CRF - Cours, LateX, TP
 Test Dickey-Fuller - Cours, LateX
 Chapitre overfitting - LateX
+
+Site:
+ML: ajouter Perceptron, descente de gradient, KNN, Tree
+Stats: ajouter notebook
