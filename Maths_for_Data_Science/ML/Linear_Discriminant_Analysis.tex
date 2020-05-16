@@ -12,21 +12,21 @@ $X | Y=-1 \sim \mathcal{N}(\mu_-,\Sigma)$ with density $f_-$
 
 Let $\pi_+$, $\pi_-$ be the simple probabilities $P(Y=+1)$, $P(Y=-1)$\vspace{3mm}
 
-$ \mathbb{P}\{Y=+1|X=x\} = \frac{\mathbb{P}\{Y=+1, X=x\}}{\mathbb{P}\{X=x\}}$
+$ \mathbb{P}(Y=+1|X=x) = \frac{\mathbb{P}(Y=+1, X=x)}{\mathbb{P}(X=x)}$
 
-$ \mathbb{P}\{Y=+1|X=x\} = \frac{\mathbb{P}\{X=x|Y=+1\} \mathbb{P}\{Y=+1\} }{\mathbb{P}\{X=x\} }$
+$ \mathbb{P}(Y=+1|X=x) = \frac{\mathbb{P}(X=x|Y=+1) \mathbb{P}(Y=+1) }{\mathbb{P}(X=x) }$
 
-$ \mathbb{P}\{Y=+1|X=x\} = \frac{f_+ \pi_+}{\mathbb{P}\{X=x\} }$
+$ \mathbb{P}(Y=+1|X=x) = \frac{f_+ \pi_+}{\mathbb{P}(X=x) }$
 
-$ \mathbb{P}\{Y=+1|X=x\} = \frac{f_+ \pi_+}{(\mathbb{P}\{X=x|Y=+1\}\mathbb{P}\{Y= +1\} + \mathbb{P}\{X=x|Y=-1\}\mathbb{P}\{Y= -1\}) }$
+$ \mathbb{P}(Y=+1|X=x) = \frac{f_+ \pi_+}{\mathbb{P}(X=x|Y=+1)\mathbb{P}(Y= +1) + \mathbb{P}(X=x|Y=-1)\mathbb{P}(Y= -1) }$
 
-$\mathbb{P}\{Y=+1|X=x\} = \frac{f_+ \pi_+}{(f_+\pi_+ + f_-\pi_-)}$
+$\mathbb{P}(Y=+1|X=x) = \frac{f_+ \pi_+}{(f_+\pi_+ + f_-\pi_-)}$
 
 Similarly,
 
-$ \mathbb{P}\{Y=-1|X=x\} = \frac{f_- (1-\pi_+)}{\mathbb{P}\{X=x\} }$
+$ \mathbb{P}(Y=-1|X=x) = \frac{f_- (1-\pi_+)}{\mathbb{P}(X=x) }$
 
-$\mathbb{P}\{Y=-1|X=x\} = \frac{f_- (1-\pi_+)}{(f_+\pi_+ + f_-\pi_-)}$
+$\mathbb{P}(Y=-1|X=x) = \frac{f_- (1-\pi_+)}{(f_+\pi_+ + f_-\pi_-)}$
 
 \vspace{3mm}
 
@@ -57,8 +57,6 @@ We predict class = 1 when $\mathbb{P}(Y=+1 | X) > \mathbb{P}(Y=-1 | X)$
 => $\frac{\mathbb{P}(Y=+1 | X)}{\mathbb{P}(Y=-1 | X)} > 1$
 
 => $\log(\frac{\mathbb{P}(Y=+1 | X)}{\mathbb{P}(Y=-1 | X)}) > 0$
-
-=> 
 
 Using previous conditional probability expressions, we end up with the following prediction rule:
 

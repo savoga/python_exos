@@ -31,8 +31,8 @@ $\theta_{t+1}=\theta_t - \alpha \nabla \ell$ \\
 \While{$E > \epsilon$}
 \For{i = 1,...,n}
 \State $\omega_{t+1}=\omega_t-\epsilon\nabla_\omega{\mathcal{\ell}(\hat{f}_\omega(x_i),y_i)}$
-\State Compute $E=L_n(\omega_{t+1})$
 \EndFor
+\State Compute $E=L_n(\omega_{t+1})$
 \EndWhile
 \end{algorithmic}
 \end{algorithm}
@@ -48,8 +48,8 @@ $\theta_{t+1}=\theta_t - \alpha \nabla \ell$ \\
 \For{i = 1,...,n}
 \State Random draw of $i \in \{1,...,n\}$
 \State $\omega_{t+1}=\omega_t-\epsilon\nabla_\omega{\mathcal{\ell}(\hat{f}_\omega(x_i),y_i)}$
-\State Compute $E=L_n(\omega_{t+1})$
 \EndFor
+\State Compute $E=L_n(\omega_{t+1})$
 \EndWhile
 \end{algorithmic}
 \end{algorithm}
