@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Tous les chemins mènent à la philosophie</title>
+  </head>
+        <h1>
+            Jouons !
+        </h1>
+  <body>
+    {% block body %}
+    <form action="/new-game" method="post">
+      <input name="start" placeholder="Article de départ"></input>
+     </form>
+    {% endblock %}
+
+    <br>
+    <br>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+  </body>
+</html>

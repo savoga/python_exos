@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+    {% block body %}
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <div class="header">
+        <h1>
+            {{title}}
+        </h1>
+        <p>Score: {{ session.score }}</p>
+        <form action="/" method="get" id="form">
+         <input type="submit" value="Recommencer" id="form">
+         </form>
+    </div>
+    <div class="content">
+    <form action="/move" method="post" id="choice_form">
+            {% for href in hrefs %}
+                {% if loop.first %}
+                    <input type="radio" name="destination" value="{{ href }}" checked="checked">
+                    <label for="{{ href }}">{{ href }}</label><br>
+                {% else %}
+                    <input type="radio" name="destination" value="{{ href }}">
+                    <label for="{{ href }}">{{ href }}</label><br>
+                {% endif %}
+            {% endfor %}
+            <br>
+            <br>
+            <br>
+            <input type="submit" value="valider" id="choice_form">
+            <br>
+        </form>
+        </div>
+    {% endblock %}
+</html>
