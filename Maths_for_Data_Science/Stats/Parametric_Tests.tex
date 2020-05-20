@@ -209,7 +209,7 @@ Regress all variables one by one on the most significant variable's residual, re
 \EndFor
 \State $k \leftarrow argmax(T \_ stats)$
 \State $Y = resid \_ mem (k)$
-\State $rem \_ variable \leftarrow rem \_ variable - {k}$
+\State $rem \_ variable \leftarrow rem \_ variable - \{k\}$
 \State $sel \_ variables \leftarrow sel \_ variables + \{k\}$
 \EndFor
 \end{algorithmic}
@@ -268,7 +268,7 @@ Method:
 
 - OLS  on constraint model => computation of $SSR_{C}$
 
-- Computation of the Fisher stat => computation of p-value (using survival function as above)
+- Computation of the Fisher stat => computation of p-value (using complementary cumulative distribution function as above)
 
 \lstset{language=Python}
 \lstset{frame=lines}

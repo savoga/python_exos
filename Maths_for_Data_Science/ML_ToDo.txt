@@ -11,3 +11,7 @@ GAN - LateX, TP
 CRF - Cours, LateX, TP
 Test Dickey-Fuller - Cours, LateX
 Chapitre overfitting - LateX
+
+LateX doc:
+ROC curve - comment trouve t-on le schéma des deux gaussiennes?
+Neural network: proof from binary law (Bernoulli) to cross-entropy
