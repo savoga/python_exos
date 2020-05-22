@@ -1,7 +1,7 @@
 ACP - LateX
 Ridge - Cours, LateX, TP
 Lasso - Cours, LateX, TP
-CNN - Cours (déjà commencé), LateX, TP
+CNN - LateX, TP
 NN - Cours (déjà commencé), LateX (déjà commencé), TP (déjà commencé)
 Random Forests - latex (déjà assez familier)
 RNN - Cours, LateX, TP
