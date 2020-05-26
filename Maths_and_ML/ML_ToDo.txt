@@ -1,4 +1,3 @@
-ACP jusqu'à vp - LateX --- 3h
 Ridge - Cours, LateX, TP --- 7h
 Lasso - Cours, LateX, TP --- 7h
 CNN - LateX, TP
