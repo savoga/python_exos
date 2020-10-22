@@ -49,18 +49,79 @@ def hasNonConvexCluster(data, labels):
             continue
         hull = ConvexHull(points)
         # Display (2D only)
-        for simplex in hull.simplices:
-            plt.plot(points[simplex, 0], points[simplex, 1], 'k-')
+        # for simplex in hull.simplices:
+        #     plt.plot(points[simplex, 0], points[simplex, 1], 'k-')
+
         polygon_idx = np.unique(hull.simplices.flatten())
         polygon_points = points[polygon_idx]
         polygon = Polygon(polygon_points)
 
+        # TO BE CHANGED (?): we should do the test on
+        # all points that are between every two points of
+        # a polygon: if it is inside the polygon, then it
+        # it non convex
         points_test = data_arr[np.where(labels!=cluster)]
         for p in points_test:
             point = Point(p)
             if(polygon.contains(point)):
                 print('Cluster {} (label) is non convex!'.format(cluster))
                 break
+
+# Simulate 3D ring; examples from
+# https://stackoverflow.com/questions/42296761/masking-a-3d-numpy-array-with-a-tilted-disc
+def ringCoordinates():
+    space=np.zeros((40,40,20))
+
+    r = 8 #radius of the circle
+    theta = np.pi / 4 # "tilt" of the circle
+    phirange = np.linspace(0, 3)
+    # phirange = np.linspace(0, 2 * np.pi) #to make a full circle
+
+    #center of the circle
+    center=[20,20,10]
+
+    #computing the values of the circle in spherical coordinates and converting them
+    #back to cartesian
+    for phi in phirange:
+        x = r * np.cos(theta) * np.cos(phi) + center[0]
+        y=  r*np.sin(phi)  + center[1]
+        z=  r*np.sin(theta)* np.cos(phi) + center[2]
+        space[int(round(x)),int(round(y)),int(round(z))]=1
+    x,y,z = space.nonzero()
+
+    # 2nd ring
+    x2 = x - 10
+    y2 = y
+    z2 = z
+    x = np.concatenate([x, x2])
+    y = np.concatenate([y, y2])
+    z = np.concatenate([z, z2])
+
+    for i in range(x.shape[0]):
+        if i % 2==0:
+            x[i] = x[i] + 1
+            z[i] = z[i] + 2
+
+    return np.stack([x,y,z], axis=1)
+
+# Parameter estimation for epsilon in DBSCAN
+def dbscanEps(X, min_samples):
+    n_neighbors = min_samples
+    nbrs = NearestNeighbors(n_neighbors=n_neighbors, algorithm='ball_tree').fit(X)
+    distances, indices = nbrs.kneighbors(X)
+    k_dist = np.apply_along_axis(lambda x: x[n_neighbors-1], axis=1, arr=distances)
+    k_dist_sorted = -np.sort(-k_dist)
+    diff_extreme = abs(k_dist_sorted[0]-k_dist_sorted[len(k_dist_sorted)-1])/len(k_dist_sorted)
+    k_dist_diff = abs(np.diff(k_dist_sorted))
+    idx_threshold = (np.abs(k_dist_diff - diff_extreme)).argmin()
+    plt.figure(figsize=(20, 8))
+    plt.plot(np.arange(1,len(k_dist_sorted)+1), k_dist_sorted)
+    plt.title('sorted k-dist graph')
+    eps = k_dist_sorted[idx_threshold]
+    plt.plot(np.arange(1,len(k_dist_sorted)+1)[idx_threshold], k_dist_sorted[idx_threshold], "o", color='r')
+    return eps
+
+#%%
 
 #************ Test on fake 2D domain knoweldge dataset (convex clusters only) ************
 
@@ -98,6 +159,38 @@ y = cluster.labels_
 fig = plt.figure()
 show_samples(X, y, display_labels = True)
 hasNonConvexCluster(X, y)
+
+#%%
+
+#************ Test on fake 3D dataset (convex and non convex clusters) ************
+
+# GOOD 3D EXAMPLE FOR WHEN KMEANS DOESN'T WORK BUT DBSCAN DOES
+
+X = ringCoordinates()
+
+min_samples = X.shape[1]-1
+eps = dbscanEps(df, min_samples)
+cluster = DBSCAN(eps=3, min_samples=2).fit(X) # works well with double ring
+
+# cluster = KMeans(n_clusters=3, random_state=0).fit(X)
+
+y = cluster.labels_
+# fig = plt.figure()
+# show_samples(X, y, display_labels = True)
+# hasNonConvexCluster(X, y)
+
+fig = go.Figure(data=[go.Scatter3d(x=X[:,0], y=X[:,1], z=X[:,2],
+                                   mode='markers',
+                                   marker=dict(
+                                       size=12,
+                                       color=cluster.labels_,
+                                       colorscale='Viridis',
+                                       opacity=0.8
+                                       )
+                                   )])
+plot(fig)
+
+#%%
 
 #************ Fake 2D domain knowledge dataset (non convex) ************
 
@@ -141,6 +234,7 @@ df_2D['Clusters'] = labels
 
 hasNonConvexCluster(df_2D[['Age','Balance']], df_2D['Clusters'])
 
+#%%
 #************ Fake 3D domain knownledge dataset ************
 
 df = pd.DataFrame(columns=['Age', 'Balance', 'Family'])
@@ -166,26 +260,10 @@ hasNonConvexCluster(df[['Age','Balance','Family']], df['Clusters'])
 #************ Determine best parameters for DBSCAN ************
 
 min_samples = 2 * df.shape[1] - 1
-n_neighbors = min_samples
-nbrs = NearestNeighbors(n_neighbors=n_neighbors, algorithm='ball_tree').fit(df)
-distances, indices = nbrs.kneighbors(df)
-k_dist = np.apply_along_axis(lambda x: x[n_neighbors-1], axis=1, arr=distances)
-k_dist_sorted = -np.sort(-k_dist)
-plt.figure(figsize=(20, 8))
-plt.plot(np.arange(1,len(k_dist_sorted)+1), k_dist_sorted)
-plt.title('sorted k-dist graph')
-diff_extreme = abs(k_dist_sorted[0]-k_dist_sorted[len(k_dist_sorted)-1])/len(k_dist_sorted)
-k_dist_diff = abs(np.diff(k_dist_sorted))
-idx_threshold = (np.abs(k_dist_diff - diff_extreme)).argmin()
-plt.figure(figsize=(20, 8))
-plt.plot(np.arange(1,len(k_dist_sorted)+1), k_dist_sorted)
-plt.title('sorted k-dist graph')
-
-plt.plot(np.arange(1,len(k_dist_sorted)+1)[idx_threshold], k_dist_sorted[idx_threshold], "o", color='r')
-
-eps = k_dist_sorted[idx_threshold]
+eps = dbscanEps(df, min_samples)
 print(eps)
 
+#%%
 #************ Plot 3D ************
 
 fig = go.Figure(data=[go.Scatter3d(x=df['Age'], y=df['Balance'], z=df['Family'],
