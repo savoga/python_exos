@@ -47,7 +47,7 @@ def hasNonConvexCluster(data, labels):
         if(len(points)<data.shape[1]+1):
             print('Cluster {}: not enough points to create a polygon'.format(cluster))
             continue
-        hull = ConvexHull(points)
+        hull = ConvexHull(points) # impossible to draw flat polygons in 3D???
         # Display (2D only)
         # for simplex in hull.simplices:
         #     plt.plot(points[simplex, 0], points[simplex, 1], 'k-')
@@ -65,7 +65,6 @@ def hasNonConvexCluster(data, labels):
             point = Point(p)
             if(polygon.contains(point)):
                 print('Cluster {} (label) is non convex!'.format(cluster))
-                break
 
 # Simulate 3D ring; examples from
 # https://stackoverflow.com/questions/42296761/masking-a-3d-numpy-array-with-a-tilted-disc
@@ -169,7 +168,7 @@ hasNonConvexCluster(X, y)
 X = ringCoordinates()
 
 min_samples = X.shape[1]-1
-eps = dbscanEps(df, min_samples)
+eps = dbscanEps(X, min_samples)
 cluster = DBSCAN(eps=3, min_samples=2).fit(X) # works well with double ring
 
 # cluster = KMeans(n_clusters=3, random_state=0).fit(X)
