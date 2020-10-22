@@ -1,3 +1,13 @@
+'''
+TODO:
+    hasNonConvexCluster()
+    we should do the test on all points that are between every two points
+    (in terms of Norm 2 I think) of a cluster: if it is not inside the cluster, then it
+    it non convex
+    Limit: can be quite long
+'''
+
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -47,7 +57,7 @@ def hasNonConvexCluster(data, labels):
         if(len(points)<data.shape[1]+1):
             print('Cluster {}: not enough points to create a polygon'.format(cluster))
             continue
-        hull = ConvexHull(points) # impossible to draw flat polygons in 3D???
+        hull = ConvexHull(points) # impossible to draw flat polygons in 3D??
         # Display (2D only)
         # for simplex in hull.simplices:
         #     plt.plot(points[simplex, 0], points[simplex, 1], 'k-')
@@ -56,10 +66,6 @@ def hasNonConvexCluster(data, labels):
         polygon_points = points[polygon_idx]
         polygon = Polygon(polygon_points)
 
-        # TO BE CHANGED (?): we should do the test on
-        # all points that are between every two points of
-        # a polygon: if it is inside the polygon, then it
-        # it non convex
         points_test = data_arr[np.where(labels!=cluster)]
         for p in points_test:
             point = Point(p)
