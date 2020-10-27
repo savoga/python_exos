@@ -9,12 +9,30 @@ XGBoost - LateX
 GAN - LateX, TP
 CRF - Cours, LateX, TP
 Test Dickey-Fuller - Cours, LateX
-Chapitre overfitting - LateX
+Régression - démo données centrées sans intercept <=> données non centrées avec intercept
+
+Yields:
+LIME DONE
+SMOTE DONE
+Regularization: l1 allows zero coefficients (variable selection?)
+Fisher_exact DONE
+Kolmogorov-Smirnov test DONE
+Wilcoxon-Mann-Whitney test DONE
+PR vs ROC (for outliers) DONE
+Undersampling/oversampling
+Fairness metrics (definition with probabilities)
+- probability equality to logistic regression
+- conditional expectation to avoid binarization
+Transformations (boxcox method) and test for normality (Shapiro, kurtosis/skewness)
+Types of distributions: Beta (with various parameters), exponential, Poisson, Chi-2
+DBSCAN DONE
+
+
 
 LateX doc:
-ROC curve - comment trouve t-on le schéma des deux gaussiennes?
 Neural network: proof from binary law (Bernoulli) to cross-entropy
 
+***** SITE *****
 
 ML: 
 Perceptron - MD --- 1h
@@ -26,3 +44,7 @@ Régression (notebook) --- 14h
 
 Idée section magie:
 vidéos de techniques (fred kaps subtelty, l'homme masque,...) avec possibilité de vote "I like it" or "not so good"
+
+Idée : afficher un "new" quand je rajoute un nouveau sujet
+
+Ajouter 'python' avant les morceaux de code pour avoir les couleurs
