@@ -2,7 +2,7 @@
 TODO:
     hasNonConvexCluster()
     we should do the test on all points that are between every two points
-    (in terms of Norm 2 I think) of a cluster: if it is not inside the cluster, then it
+    (in terms of Euclidean norm I think) of a cluster: if it is not inside the cluster, then it
     it non convex
     Limit: can be quite long
 '''
@@ -19,9 +19,12 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.offline import plot
 from sklearn.neighbors import NearestNeighbors
+from sklearn.metrics import silhouette_score
 
 from scipy.spatial import ConvexHull, convex_hull_plot_2d
 from shapely.geometry import Point, Polygon
+
+#%%
 
 # Color samples depending on labels
 def show_samples(samples, labels, features = [0,1], feature_names = None, display_labels = True):
@@ -42,7 +45,7 @@ def show_samples(samples, labels, features = [0,1], feature_names = None, displa
     # plt.axis('equal')
     # plt.show()
 
-# Detect whether clusters are convex
+# Detect whether clusters are convex (2)
 def hasNonConvexCluster(data, labels):
 
     data_arr = np.array(data)
@@ -59,8 +62,8 @@ def hasNonConvexCluster(data, labels):
             continue
         hull = ConvexHull(points) # impossible to draw flat polygons in 3D??
         # Display (2D only)
-        # for simplex in hull.simplices:
-        #     plt.plot(points[simplex, 0], points[simplex, 1], 'k-')
+        for simplex in hull.simplices:
+            plt.plot(points[simplex, 0], points[simplex, 1], 'k-')
 
         polygon_idx = np.unique(hull.simplices.flatten())
         polygon_points = points[polygon_idx]
@@ -71,6 +74,13 @@ def hasNonConvexCluster(data, labels):
             point = Point(p)
             if(polygon.contains(point)):
                 print('Cluster {} (label) is non convex!'.format(cluster))
+
+def point_in_hull(point, hull, tolerance=1e-52):
+    return all(
+        (np.dot(eq[:-1], point) + eq[-1] <= tolerance)
+        for eq in hull.equations)
+
+#%%
 
 # Simulate 3D ring; examples from
 # https://stackoverflow.com/questions/42296761/masking-a-3d-numpy-array-with-a-tilted-disc
@@ -149,9 +159,13 @@ cluster = KMeans(n_clusters=3, random_state=0).fit(df_2D)
 
 show_samples(np.array(df_2D), cluster.labels_, feature_names = ['Age','Balance'], display_labels = True)
 
+#%%
+
 #************ Test on fake 2D dataset (convex and non convex clusters) ************
 
 X, y = make_moons(n_samples=100, shuffle=True, noise=None, random_state=None)
+X = X.astype(float)
+hull = ConvexHull(X)
 # X, y = make_blobs(n_samples=100, centers=3, n_features=2, cluster_std=1, random_state=39)
 
 #cluster = KMeans(n_clusters=3, random_state=0).fit(X)
@@ -161,9 +175,42 @@ min_samples = X.shape[1]-1
 cluster = DBSCAN(eps=eps, min_samples=2).fit(X)
 
 y = cluster.labels_
-fig = plt.figure()
-show_samples(X, y, display_labels = True)
+
+randomRows = np.random.randint(X.shape[0], size=3)
+U = X[randomRows,:]
+for i in range(U.shape[0]):
+    U[i] = U[i] + np.random.randn()
+
 hasNonConvexCluster(X, y)
+
+X2 = np.concatenate([X,U], axis=0)
+y = np.concatenate([y,np.array([5,5,5])], axis=0)
+
+# fig = plt.figure()
+show_samples(X2, y, display_labels = True)
+a = [point_in_hull(point, hull) for point in U]
+print(a)
+
+for idx_x, elt_x in enumerate(X):
+    for idx_u, elt_u in enumerate(U):
+        if (elt_x == elt_u).all() :
+            print('element {} is in X'.format(idx_u))
+
+#%%
+
+#************ Performance ************
+
+X, y = make_moons(n_samples=100, shuffle=True, noise=None, random_state=None)
+
+eps = 0.5
+min_samples = X.shape[1]-1
+cluster = DBSCAN(eps=eps, min_samples=2).fit(X)
+
+y = cluster.labels_
+
+print(silhouette_score(X, y, metric='euclidean'))
+print()
+
 
 #%%
 
@@ -171,7 +218,10 @@ hasNonConvexCluster(X, y)
 
 # GOOD 3D EXAMPLE FOR WHEN KMEANS DOESN'T WORK BUT DBSCAN DOES
 
-X = ringCoordinates()
+np.random.seed(seed=1)
+
+X = ringCoordinates().astype(float)
+hull = ConvexHull(X)
 
 min_samples = X.shape[1]-1
 eps = dbscanEps(X, min_samples)
@@ -184,16 +234,33 @@ y = cluster.labels_
 # show_samples(X, y, display_labels = True)
 # hasNonConvexCluster(X, y)
 
-fig = go.Figure(data=[go.Scatter3d(x=X[:,0], y=X[:,1], z=X[:,2],
+randomRows = np.random.randint(X.shape[0], size=3)
+U = X[randomRows,:]
+for i in range(U.shape[0]):
+    U[i] = U[i] + np.random.randn()
+
+X2 = np.concatenate([X,U], axis=0)
+y = np.concatenate([y,np.array([5,5,5])], axis=0)
+
+fig = go.Figure(data=[go.Scatter3d(x=X2[:,0], y=X2[:,1], z=X2[:,2],
                                    mode='markers',
                                    marker=dict(
                                        size=12,
-                                       color=cluster.labels_,
+                                       color=y,
                                        colorscale='Viridis',
                                        opacity=0.8
                                        )
                                    )])
 plot(fig)
+
+a = [point_in_hull(point, hull) for point in U]
+print(a)
+
+for idx_x, elt_x in enumerate(X):
+    for idx_u, elt_u in enumerate(U):
+        if (elt_x == elt_u).all() :
+            print('element {} is in X'.format(idx_u))
+
 
 #%%
 
