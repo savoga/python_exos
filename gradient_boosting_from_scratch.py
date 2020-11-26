@@ -11,6 +11,7 @@ from IPython.display import display
 from sklearn import metrics
 import math
 import math
+import matplotlib.pyplot as plt
 
 def std_agg(cnt, s1, s2): return math.sqrt((s2/cnt) - (s1/cnt)**2)
 
@@ -106,7 +107,7 @@ n = len(yi)  # number of rows
 predf = 0 # initial prediction 0
 
 for i in range(30): # like n_estimators
-    tree = DecisionTree(xi,yi)
+    tree = DecisionTree(xi,yi, min_leaf=4)
     tree.find_better_split(0)
 
     r = np.where(xi == tree.split)[0][0]
@@ -143,5 +144,6 @@ for i in range(30): # like n_estimators
 
     ax2.plot(x, ei, 'go')
     ax2.set_title(f'Residuals vs. x (Iteration {i+1})')
+    ax2.axhline(y=0, color='r', linestyle='-')
     ax2.set_xlabel('x')
     ax2.set_ylabel('Residuals')

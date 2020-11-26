@@ -49,7 +49,7 @@ class SplitElement:
 class Leaf:
     """count LABELS in the leaf"""
     def __init__(self, rows):
-        self.predictions = class_counts(rows)
+        self.predictions = label_counts(rows)
 
 class Decision_Node:
     """Contains the SplitElement and to the two child nodes"""
@@ -77,7 +77,7 @@ def partition(rows, split_element):
 def gini(rows):
     """Calculate the Gini Impurity for a list of rows.
     https://en.wikipedia.org/wiki/Decision_tree_learning#Gini_impurity"""
-    counts = class_counts(rows)
+    counts = label_counts(rows)
     impurity = 1
     for lbl in counts:
         prob_of_lbl = counts[lbl] / float(len(rows))
