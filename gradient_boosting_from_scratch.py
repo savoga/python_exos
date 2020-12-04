@@ -108,9 +108,9 @@ predf = 0 # initial prediction 0
 
 for i in range(30): # like n_estimators
     tree = DecisionTree(xi,yi, min_leaf=4)
-    tree.find_better_split(0)
+    tree.find_better_split(0) # change tree.split
 
-    r = np.where(xi == tree.split)[0][0]
+    r = np.where(xi == tree.split)[0][0] # index of the split element
 
     left_idx = np.where(xi <= tree.split)[0]
     right_idx = np.where(xi > tree.split)[0]
