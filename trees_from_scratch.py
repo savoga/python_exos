@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# WARNING: this implementation is for CLASSIFICATION ONLY
 
 def label_counts(rows):
     """Counts the number of each label in a dataset"""
@@ -34,7 +33,7 @@ class SplitElement:
         if is_numeric(self.value):
             condition = ">="
         return "%s %s %s?" % (
-            header[self.column], condition, str(self.value))
+            'col:'+str(self.column), condition, str(self.value))
 
 class Leaf:
     """count LABELS in the leaf"""
@@ -113,6 +112,7 @@ class DecisionTree:
         # Recursively build the false branch.
         left_branch = self.build_tree(left_rows)
         return Decision_Node(split_element, right_branch, left_branch)
+
 # **********************************************************
 
 def print_tree(node, spacing=""):
@@ -125,6 +125,7 @@ def print_tree(node, spacing=""):
     print (spacing + '--> False:')
     print_tree(node.left_branch, spacing + "  ")
 
+'''
 # ********************* COMPARISON WITH SCIKIT LEARN ************
 
 training_data = [ # = ROWS of the dataset
@@ -153,3 +154,4 @@ X = pd.concat([pd.DataFrame(data=X.toarray()),df_training_data['Wealth']], axis=
 y = df_training_data['Mandate']
 clf.fit(X, y)
 tree.plot_tree(clf)
+'''
