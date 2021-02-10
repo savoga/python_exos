@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 from sklearn import tree
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
@@ -20,7 +19,7 @@ data = pd.DataFrame(data=[
 X = data[['feat1','feat2']]
 y = data['label']
 
-clf = tree.DecisionTreeClassifier(max_depth=3)
+clf = tree.DecisionTreeClassifier(max_depth=3, random_state=0)
 clf.fit(X,y)
 fig = plt.figure(figsize=(10,10))
 print(round(accuracy_score(clf.predict(X),y)*100,2))
