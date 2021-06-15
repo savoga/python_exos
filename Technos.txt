@@ -59,6 +59,11 @@ Stockage à la manière d'un stockage relationnel
 
 ++ utilise MapReduce pour les requêtes
 
+PRESTO
+
+Requêtes SQL distribuées
+Différences avec HIVE: Hive est souvent tolérant aux pannes alors que Presto non
+
 MINIO
 
 Service de stockage en ligne (cloud). Alternative à Hadoop, même si Minio est davantage centré sur le Cloud.
