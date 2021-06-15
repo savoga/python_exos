@@ -1,5 +1,7 @@
 HADOOP
 
+Système de traitement de données réparti en plusieurs noeuds
+
 Principe de base: haute tolérance aux pannes
 
 HDFS: système de fichiers distibués. Les données sont réparties et répliquées sur le cluster.
@@ -48,3 +50,20 @@ Application = Application Spark. Elle est constituée d’un driver et d’execu
 Job = un calcul parallélisé au sein d’une application consistant en un ensemble de stages menant à une Action (ex : collect)
 Stage = ensemble de tasks interdépendantes (ex : map puis reduce)
 Task = unité de travail distribuée sur un executor
+
+HIVE
+
+Outils permettant le requêtage et l'analyse de données. S'utilise avec Hadoop.
+Langage proche du SQL
+Stockage à la manière d'un stockage relationnel
+
+++ utilise MapReduce pour les requêtes
+
+MINIO
+
+Service de stockage en ligne (cloud). Alternative à Hadoop, même si Minio est davantage centré sur le Cloud.
+
+Ce n'est pas un grand système de stockage mais une solution pour avoir les données proches des applications.
+Peut être utilisé avec un "vrai" système de stockage tel que S3
+
+++ open source, très facile d'utilisation
